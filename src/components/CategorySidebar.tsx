@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Cpu, Zap, Microchip, Radar, Cable, Battery, Plug } from "lucide-react";
+import { ChevronDown, ChevronRight, Cpu, Zap, Microchip, Radar, Cable, Battery, Plug, Calculator } from "lucide-react";
 import { Category, Subcategory } from "@/types/component";
 import { cn } from "@/lib/utils";
 
@@ -7,6 +7,8 @@ interface CategorySidebarProps {
   categories: Category[];
   selectedSubcategory: string | null;
   onSubcategorySelect: (subcategoryId: string) => void;
+  onCalculatorSelect: () => void;
+  isCalculatorSelected: boolean;
 }
 
 const iconMap: Record<string, any> = {
@@ -23,6 +25,8 @@ export const CategorySidebar = ({
   categories,
   selectedSubcategory,
   onSubcategorySelect,
+  onCalculatorSelect,
+  isCalculatorSelected,
 }: CategorySidebarProps) => {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(categories.map((c) => c.id))
@@ -48,6 +52,21 @@ export const CategorySidebar = ({
       </div>
 
       <div className="p-4 space-y-2">
+        <button
+          onClick={onCalculatorSelect}
+          className={cn(
+            "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors",
+            isCalculatorSelected
+              ? "bg-sidebar-primary text-sidebar-primary-foreground font-medium"
+              : "text-sidebar-foreground hover:bg-sidebar-accent"
+          )}
+        >
+          <Calculator className="h-5 w-5 text-sidebar-primary" />
+          <span className="font-medium text-sm">Electronics Calculator</span>
+        </button>
+
+        <div className="border-t border-sidebar-border my-4" />
+
         {categories.map((category) => {
           const Icon = iconMap[category.icon] || Cpu;
           const isExpanded = expandedCategories.has(category.id);

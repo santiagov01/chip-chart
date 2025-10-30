@@ -17,6 +17,7 @@ const Index = () => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showCalculator, setShowCalculator] = useState(false);
 
   const currentSubcategory = useMemo(() => {
     if (!selectedSubcategory) return null;
@@ -71,12 +72,18 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <ElectronicsCalculator />
-      
       <CategorySidebar
         categories={categories}
         selectedSubcategory={selectedSubcategory}
-        onSubcategorySelect={setSelectedSubcategory}
+        onSubcategorySelect={(id) => {
+          setSelectedSubcategory(id);
+          setShowCalculator(false);
+        }}
+        onCalculatorSelect={() => {
+          setShowCalculator(true);
+          setSelectedSubcategory(null);
+        }}
+        isCalculatorSelected={showCalculator}
       />
 
       <div className="flex-1 flex flex-col">
@@ -103,7 +110,9 @@ const Index = () => {
         </header>
 
         <main className="flex-1 p-6">
-          {!selectedSubcategory ? (
+          {showCalculator ? (
+            <ElectronicsCalculator />
+          ) : !selectedSubcategory ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center space-y-4 max-w-md">
                 <div className="text-6xl">⚡</div>

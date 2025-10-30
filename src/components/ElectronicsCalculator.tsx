@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Calculator, Zap, Battery, Radio } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const ElectronicsCalculator = () => {
@@ -83,233 +82,213 @@ export const ElectronicsCalculator = () => {
   };
 
   return (
-    <div className="w-80 bg-card border-r border-border h-screen overflow-y-auto">
-      <div className="p-4 border-b border-border bg-gradient-to-b from-primary/5 to-transparent">
-        <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-          <Calculator className="h-5 w-5 text-primary" />
+    <div className="max-w-5xl mx-auto">
+      <div className="mb-6">
+        <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
+          <Calculator className="h-8 w-8 text-primary" />
           Electronics Calculator
         </h2>
+        <p className="text-muted-foreground mt-2">
+          Calculate Ohm's Law, Power, Energy, and Capacitive Reactance
+        </p>
       </div>
 
-      <div className="p-4">
-        <Tabs defaultValue="ohm" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="ohm">Ohm's Law</TabsTrigger>
-            <TabsTrigger value="power">Power</TabsTrigger>
-          </TabsList>
-          <TabsList className="grid w-full grid-cols-2 mt-2">
-            <TabsTrigger value="energy">Energy</TabsTrigger>
-            <TabsTrigger value="reactance">Reactance</TabsTrigger>
-          </TabsList>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Ohm's Law Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5 text-primary" />
+              Ohm's Law
+            </CardTitle>
+            <CardDescription>V = I × R</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="voltage">Voltage (V)</Label>
+              <Input
+                id="voltage"
+                type="number"
+                value={voltage}
+                onChange={(e) => setVoltage(e.target.value)}
+                onBlur={calculateOhmsLaw}
+                placeholder="Enter voltage"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="current">Current (A)</Label>
+              <Input
+                id="current"
+                type="number"
+                value={current}
+                onChange={(e) => setCurrent(e.target.value)}
+                onBlur={calculateOhmsLaw}
+                placeholder="Enter current"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="resistance">Resistance (Ω)</Label>
+              <Input
+                id="resistance"
+                type="number"
+                value={resistance}
+                onChange={(e) => setResistance(e.target.value)}
+                onBlur={calculateOhmsLaw}
+                placeholder="Enter resistance"
+                className="mt-1"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-          <TabsContent value="ohm" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-primary" />
-                  Ohm's Law
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  V = I × R
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <Label htmlFor="voltage" className="text-xs">Voltage (V)</Label>
-                  <Input
-                    id="voltage"
-                    type="number"
-                    value={voltage}
-                    onChange={(e) => setVoltage(e.target.value)}
-                    onBlur={calculateOhmsLaw}
-                    placeholder="Enter voltage"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="current" className="text-xs">Current (A)</Label>
-                  <Input
-                    id="current"
-                    type="number"
-                    value={current}
-                    onChange={(e) => setCurrent(e.target.value)}
-                    onBlur={calculateOhmsLaw}
-                    placeholder="Enter current"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="resistance" className="text-xs">Resistance (Ω)</Label>
-                  <Input
-                    id="resistance"
-                    type="number"
-                    value={resistance}
-                    onChange={(e) => setResistance(e.target.value)}
-                    onBlur={calculateOhmsLaw}
-                    placeholder="Enter resistance"
-                    className="mt-1"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+        {/* Power Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Battery className="h-5 w-5 text-primary" />
+              Power Calculation
+            </CardTitle>
+            <CardDescription>P = V × I</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="power">Power (W)</Label>
+              <Input
+                id="power"
+                type="number"
+                value={power}
+                onChange={(e) => setPower(e.target.value)}
+                onBlur={calculatePower}
+                placeholder="Enter power"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="powerV">Voltage (V)</Label>
+              <Input
+                id="powerV"
+                type="number"
+                value={powerV}
+                onChange={(e) => setPowerV(e.target.value)}
+                onBlur={calculatePower}
+                placeholder="Enter voltage"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="powerI">Current (A)</Label>
+              <Input
+                id="powerI"
+                type="number"
+                value={powerI}
+                onChange={(e) => setPowerI(e.target.value)}
+                onBlur={calculatePower}
+                placeholder="Enter current"
+                className="mt-1"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-          <TabsContent value="power" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Battery className="h-4 w-4 text-primary" />
-                  Power Calculation
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  P = V × I
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <Label htmlFor="power" className="text-xs">Power (W)</Label>
-                  <Input
-                    id="power"
-                    type="number"
-                    value={power}
-                    onChange={(e) => setPower(e.target.value)}
-                    onBlur={calculatePower}
-                    placeholder="Enter power"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="powerV" className="text-xs">Voltage (V)</Label>
-                  <Input
-                    id="powerV"
-                    type="number"
-                    value={powerV}
-                    onChange={(e) => setPowerV(e.target.value)}
-                    onBlur={calculatePower}
-                    placeholder="Enter voltage"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="powerI" className="text-xs">Current (A)</Label>
-                  <Input
-                    id="powerI"
-                    type="number"
-                    value={powerI}
-                    onChange={(e) => setPowerI(e.target.value)}
-                    onBlur={calculatePower}
-                    placeholder="Enter current"
-                    className="mt-1"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+        {/* Energy Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5 text-primary" />
+              Energy Calculation
+            </CardTitle>
+            <CardDescription>E = P × t</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="energy">Energy (J or Wh)</Label>
+              <Input
+                id="energy"
+                type="number"
+                value={energy}
+                onChange={(e) => setEnergy(e.target.value)}
+                onBlur={calculateEnergy}
+                placeholder="Enter energy"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="energyP">Power (W)</Label>
+              <Input
+                id="energyP"
+                type="number"
+                value={energyP}
+                onChange={(e) => setEnergyP(e.target.value)}
+                onBlur={calculateEnergy}
+                placeholder="Enter power"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="time">Time (s or h)</Label>
+              <Input
+                id="time"
+                type="number"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                onBlur={calculateEnergy}
+                placeholder="Enter time"
+                className="mt-1"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-          <TabsContent value="energy" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-primary" />
-                  Energy Calculation
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  E = P × t
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <Label htmlFor="energy" className="text-xs">Energy (J or Wh)</Label>
-                  <Input
-                    id="energy"
-                    type="number"
-                    value={energy}
-                    onChange={(e) => setEnergy(e.target.value)}
-                    onBlur={calculateEnergy}
-                    placeholder="Enter energy"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="energyP" className="text-xs">Power (W)</Label>
-                  <Input
-                    id="energyP"
-                    type="number"
-                    value={energyP}
-                    onChange={(e) => setEnergyP(e.target.value)}
-                    onBlur={calculateEnergy}
-                    placeholder="Enter power"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="time" className="text-xs">Time (s or h)</Label>
-                  <Input
-                    id="time"
-                    type="number"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    onBlur={calculateEnergy}
-                    placeholder="Enter time"
-                    className="mt-1"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="reactance" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Radio className="h-4 w-4 text-primary" />
-                  Capacitive Reactance
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  Xc = 1 / (2πfC)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <Label htmlFor="capacitance" className="text-xs">Capacitance (μF)</Label>
-                  <Input
-                    id="capacitance"
-                    type="number"
-                    value={capacitance}
-                    onChange={(e) => setCapacitance(e.target.value)}
-                    onBlur={calculateReactance}
-                    placeholder="Enter capacitance"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="frequency" className="text-xs">Frequency (Hz)</Label>
-                  <Input
-                    id="frequency"
-                    type="number"
-                    value={frequency}
-                    onChange={(e) => setFrequency(e.target.value)}
-                    onBlur={calculateReactance}
-                    placeholder="Enter frequency"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="reactance" className="text-xs">Reactance (Ω)</Label>
-                  <Input
-                    id="reactance"
-                    type="number"
-                    value={reactance}
-                    onChange={(e) => setReactance(e.target.value)}
-                    onBlur={calculateReactance}
-                    placeholder="Enter reactance"
-                    className="mt-1"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        {/* Capacitive Reactance Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Radio className="h-5 w-5 text-primary" />
+              Capacitive Reactance
+            </CardTitle>
+            <CardDescription>Xc = 1 / (2πfC)</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="capacitance">Capacitance (μF)</Label>
+              <Input
+                id="capacitance"
+                type="number"
+                value={capacitance}
+                onChange={(e) => setCapacitance(e.target.value)}
+                onBlur={calculateReactance}
+                placeholder="Enter capacitance"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="frequency">Frequency (Hz)</Label>
+              <Input
+                id="frequency"
+                type="number"
+                value={frequency}
+                onChange={(e) => setFrequency(e.target.value)}
+                onBlur={calculateReactance}
+                placeholder="Enter frequency"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="reactance">Reactance (Ω)</Label>
+              <Input
+                id="reactance"
+                type="number"
+                value={reactance}
+                onChange={(e) => setReactance(e.target.value)}
+                onBlur={calculateReactance}
+                placeholder="Enter reactance"
+                className="mt-1"
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
