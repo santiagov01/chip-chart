@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { CategorySidebar } from "@/components/CategorySidebar";
+import { ElectronicsCalculator } from "@/components/ElectronicsCalculator";
 import { ComponentCard } from "@/components/ComponentCard";
 import { ComponentDetail } from "@/components/ComponentDetail";
 import { AddComponentDialog } from "@/components/AddComponentDialog";
@@ -70,6 +71,8 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
+      <ElectronicsCalculator />
+      
       <CategorySidebar
         categories={categories}
         selectedSubcategory={selectedSubcategory}
